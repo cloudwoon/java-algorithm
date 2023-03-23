@@ -1,30 +1,43 @@
 import java.util.*;
 
 class Main {
-    public int solution(int n) {
-        int answer = 2;
-        int[] prime = new int[n/2];
-        prime[0] = 2;
-        prime[1] = 3;
-        for (int i = 5; i < n + 1; i+=2) {
-            boolean flag = false;
-            for (int j = 1; prime[j]*prime[j] <= i;j++){
-                if(i%prime[j] == 0){
-                    flag = true;
-                    break;
-                }
-            }
-            if (!flag) {
-                prime[answer++] = i;
+    public void solution(int n, int[] a) {
+        //
+        int[] reverse = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            while (a[i] != 0) {
+                reverse[i] = reverse[i] * 10 + a[i] % 10;
+                a[i] /= 10;
             }
         }
-        return answer;
+
+        for (int num : reverse) {
+            boolean isPrime = true;
+            for (int i = 2; i < num / 2; i++) {
+                if (num < 2) {
+                    isPrime = false;
+                    break;
+                }
+                if (num % i == 0) {
+                    isPrime = false;
+                    break;
+                }
+                //  System.out.println(i+":"+isPrime);
+            }
+            if (num < 2) isPrime = false;
+            System.out.print(isPrime ? num + " " : "");
+        }
     }
 
     public static void main(String[] args) {
         Main T = new Main();
         Scanner kb = new Scanner(System.in);
         int n = kb.nextInt();
-        System.out.print(T.solution(n));
+        int[] a = new int[n];
+        for (int i = 0; i < n; i++) {
+            a[i] = kb.nextInt();
+        }
+        T.solution(n, a);
     }
 }
