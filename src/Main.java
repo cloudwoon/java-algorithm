@@ -1,29 +1,56 @@
 import java.util.*;
 
 class Main {
-    public int[] solution(int n, int[] a) {
-        int[] answer = new int[n];
-        int cnt = 1;
+    public int solution(int n, int[][] a) {
+        int answer = 0;
+        int sum = 0;
 
+        //행의 합
         for (int i = 0; i < n; i++) {
+            sum = 0;
             for (int j = 0; j < n; j++) {
-                if (a[i] < a[j]) cnt++;
+                sum += a[i][j];
             }
-            answer[i] = cnt;
-            cnt = 1;
+            if (sum > answer) answer = sum;
         }
+        //열의 합
+        for (int i = 0; i < n; i++) {
+            sum = 0;
+            for (int j = 0; j < n; j++) {
+                sum += a[j][i];
+            }
+            if (sum > answer) answer = sum;
+        }
+        sum = 0;
+        //두 대각선의 합
+        for (int i = 0; i < n; i++) {
+            sum += a[i][i];
+        }
+        if (sum > answer) {
+            answer = sum;
+        }
+        sum = 0;
+
+        //두 대각선의 합
+        for (int i = n - 1; i >= 0; i--) {
+            sum += a[i][i];
+        }
+        if (sum > answer) answer = sum;
+
         return answer;
     }
+
     public static void main(String[] args) {
         Main T = new Main();
         Scanner kb = new Scanner(System.in);
         int n = kb.nextInt();
-        int[] a = new int[n];
+        int[][] a = new int[n][n];
+
         for (int i = 0; i < n; i++) {
-            a[i] = kb.nextInt();
+            for (int j = 0; j < n; j++) {
+                a[i][j] = kb.nextInt();
+            }
         }
-        for (int x : T.solution(n, a)) {
-            System.out.print(x + " ");
-        }
+        System.out.print(T.solution(n, a));
     }
 }
