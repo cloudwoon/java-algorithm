@@ -1,37 +1,36 @@
 import java.util.*;
 
 class Main {
-    public int solution(int n, int[][] arr) {
-        int answer = 0;
-        int[][] pan = new int[n + 2][n + 2];
+    public int[] solution(int n, int m, int[] nNum, int[] mNum) {
+        int[] answer = new int[m];
 
-        for (int i = 0; i < n; i++) {
-            for (int k = 0; k < n; k++) {
-                pan[i + 1][k + 1] = arr[i][k];
+        for (int i = 0; i < m ; i++){
+            int t = 0;
+            for (int k = 0; k<n;k++){
+                if(mNum[i] == nNum[k]) t = 1;
             }
-        }
-
-        for (int i = 1; i < n + 1; i++) {
-            for (int k = 1; k < n + 1; k++) {
-                if (pan[i][k] > pan[i][k - 1] &&
-                        pan[i][k] > pan[i + 1][k] &&
-                        pan[i][k] > pan[i][k + 1] &&
-                        pan[i][k] > pan[i - 1][k]) answer++;
-            }
+            answer[i] = t;
         }
         return answer;
     }
-
     public static void main(String[] args) {
         Main T = new Main();
         Scanner kb = new Scanner(System.in);
         int n = kb.nextInt();
-        int[][] arr = new int[n][n];
+        int[] nNum = new int[n];
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                arr[i][j] = kb.nextInt();
-            }
+            nNum[i] = kb.nextInt();
         }
-        System.out.print(T.solution(n, arr));
+        int m = kb.nextInt();
+        int[] mNum = new int[m];
+        for (int i = 0; i < m; i++) {
+            mNum[i] = kb.nextInt();
+        }
+
+        for (int i : T.solution(n,m,nNum,mNum)){
+            System.out.print(i + " ");
+        }
+
+        //시간초과
     }
 }
