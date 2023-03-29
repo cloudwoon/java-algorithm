@@ -1,42 +1,24 @@
 import java.util.*;
 
 class Main {
-    public int solution(int n, int[][] a) {
+    public int solution(int n, int[][] arr) {
         int answer = 0;
-        int sum = 0;
+        int[][] pan = new int[n + 2][n + 2];
 
-        //행의 합
         for (int i = 0; i < n; i++) {
-            sum = 0;
-            for (int j = 0; j < n; j++) {
-                sum += a[i][j];
+            for (int k = 0; k < n; k++) {
+                pan[i + 1][k + 1] = arr[i][k];
             }
-            if (sum > answer) answer = sum;
         }
-        //열의 합
-        for (int i = 0; i < n; i++) {
-            sum = 0;
-            for (int j = 0; j < n; j++) {
-                sum += a[j][i];
+
+        for (int i = 1; i < n + 1; i++) {
+            for (int k = 1; k < n + 1; k++) {
+                if (pan[i][k] > pan[i][k - 1] &&
+                        pan[i][k] > pan[i + 1][k] &&
+                        pan[i][k] > pan[i][k + 1] &&
+                        pan[i][k] > pan[i - 1][k]) answer++;
             }
-            if (sum > answer) answer = sum;
         }
-        sum = 0;
-        //두 대각선의 합
-        for (int i = 0; i < n; i++) {
-            sum += a[i][i];
-        }
-        if (sum > answer) {
-            answer = sum;
-        }
-        sum = 0;
-
-        //두 대각선의 합
-        for (int i = n - 1; i >= 0; i--) {
-            sum += a[i][i];
-        }
-        if (sum > answer) answer = sum;
-
         return answer;
     }
 
@@ -44,13 +26,12 @@ class Main {
         Main T = new Main();
         Scanner kb = new Scanner(System.in);
         int n = kb.nextInt();
-        int[][] a = new int[n][n];
-
+        int[][] arr = new int[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                a[i][j] = kb.nextInt();
+                arr[i][j] = kb.nextInt();
             }
         }
-        System.out.print(T.solution(n, a));
+        System.out.print(T.solution(n, arr));
     }
 }
