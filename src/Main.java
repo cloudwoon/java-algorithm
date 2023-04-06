@@ -1,38 +1,46 @@
-import java.util.*;
+import java.io.*;
+import java.util.StringTokenizer;
+
 class Main {
-    public int solution(int n, int m, int[][] arr){
-        int answer=0;
-        for(int i=1; i<=n; i++){
-            for(int j=1; j<=n; j++){
-                int cnt=0;
-                for(int k=0; k<m; k++){
-                    int pi=0, pj=0;
-                    for(int s=0; s<n; s++){
-                        if(arr[k][s]==i) pi=s;
-                        if(arr[k][s]==j) pj=s;
+    public int solution(int num, int[][] classNum) {
+        int answer = 0;
+        int max = 0;
+        for (int i = 1; i <= num; i++) {
+            int count = 0;
+            for (int k = 1; k <= num; k++) {
+                for (int j = 1; j <= 5; j++) {
+                    if (classNum[i][j] == classNum[k][j]) {
+                        count++;
+                        break;
                     }
-                    if(pi<pj) cnt++;
                 }
-                if(cnt==m){
-                    answer++;
-                    //System.out.println(i+" "+j);
-                }
+            }
+            if (count > max) {
+                max = count;
+                answer = i;
             }
         }
         return answer;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         Main T = new Main();
-        Scanner kb = new Scanner(System.in);
-        int n=kb.nextInt();
-        int m=kb.nextInt();
-        int[][] arr=new int[m][n];
-        for(int i=0; i<m; i++){
-            for(int j=0; j<n; j++){
-                arr[i][j]=kb.nextInt();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st;
+
+        int N = Integer.parseInt(br.readLine());
+        int[][] classNum = new int[N + 1][6];
+
+        for (int i = 1; i <= N; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int k = 1; k <= 5; k++) {
+                classNum[i][k] = Integer.parseInt(st.nextToken());
             }
         }
-        System.out.print(T.solution(n, m, arr));
+        bw.write(String.valueOf(T.solution(N, classNum)));
+        bw.flush();
+        bw.close();
     }
+    //수정본, 정답
 }
