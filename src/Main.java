@@ -5,10 +5,15 @@ class Main {
     public ArrayList<Integer> solution(int n, int m, int[] a, int[] b) {
         ArrayList<Integer> answer = new ArrayList<>();
         Arrays.sort(a);
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (a[i] == b[j]) answer.add(a[i]);
-            }
+        Arrays.sort(b);
+        int p1=0,p2=0;
+
+        while (p1<n && p2<m){
+            if (a[p1] == b[p2]) {
+                answer.add(a[p1++]);
+                p2++;
+            }else if (a[p1] < b[p2]) p1++;
+            else p2++;
         }
         return answer;
     }
@@ -33,8 +38,9 @@ class Main {
         }
 
         for (int x : T.solution(N, M, Nnum, Mnum)) {
-            System.out.print(x + " ");
+            bw.write(x+" ");
         }
+        bw.flush();
+        bw.close();
     }
-    //시간 초과
 }
