@@ -1,16 +1,19 @@
 import java.io.*;
 import java.util.*;
+
 class Main {
-    public void solution(int N, int M, int[] Nnum, int[] Mnum) {
-        int[] answer = new int[N + M];
-        System.arraycopy(Nnum, 0, answer, 0, Nnum.length);
-        System.arraycopy(Mnum, 0, answer, Nnum.length, Mnum.length);
-        Arrays.sort(answer);
-        for (int i = 0; i < answer.length; i++) {
-            System.out.print(answer[i] + " ");
+    public ArrayList<Integer> solution(int n, int m, int[] a, int[] b) {
+        ArrayList<Integer> answer = new ArrayList<>();
+        Arrays.sort(a);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (a[i] == b[j]) answer.add(a[i]);
+            }
         }
+        return answer;
     }
-    public static void main(String[] args) throws IOException {
+
+    public static void main(String[] args) throws IOException, IOException {
         Main T = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -28,6 +31,10 @@ class Main {
         for (int i = 0; i < M; i++) {
             Mnum[i] = Integer.parseInt(st.nextToken());
         }
-        T.solution(N, M, Nnum, Mnum);
+
+        for (int x : T.solution(N, M, Nnum, Mnum)) {
+            System.out.print(x + " ");
+        }
     }
+    //시간 초과
 }
