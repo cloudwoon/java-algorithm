@@ -6,7 +6,6 @@ import java.util.StringTokenizer;
 public class Main {
     public static void solution(int n, int k, int[] score) {
         int max = 0, sum = 0;
-        int start = 0;
 
         for (int i = 0; i < n; i++) {
             sum = sum + score[i];
