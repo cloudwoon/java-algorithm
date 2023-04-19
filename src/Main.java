@@ -1,21 +1,21 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static void solution(int n, int m, int[] cards) {
-        int max = 0;
-        for (int i = 0; i < n ; i++){
-            for (int j = i+1; j < n; j++){
-                for (int k = j+1; k < n ; k++){
-                    if (cards[i] + cards[j] + cards[k] <= m) {
-                        if (cards[i] + cards[j] + cards[k] > max) max = cards[i] + cards[j] + cards[k];
-                    }
-                }
+    public static void solution(int n, int k, int[] score) {
+        int max = 0, sum = 0;
+        int start = 0;
+
+        for (int i = 0; i < n; i++) {
+            sum = sum + score[i];
+            if (i == k-1) {
+                max = sum;
+            }
+            if (i>=k) {
+                sum = sum - score[i-k];
+                max = Math.max(max,sum);
             }
         }
         System.out.print(max);
@@ -25,15 +25,15 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
         st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
-        int[] cards = new int[n];
+        int N = Integer.parseInt(st.nextToken());
+        int K = Integer.parseInt(st.nextToken());
+        int[] score = new int[N];
         st = new StringTokenizer(br.readLine());
 
-        for (int i = 0; i < n; i++) {
-            cards[i] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < N; i++) {
+            score[i] = Integer.parseInt(st.nextToken());
         }
 
-        solution(n,m,cards);
+        solution(N, K, score);
     }
 }
