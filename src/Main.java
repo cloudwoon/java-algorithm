@@ -1,23 +1,23 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static void solution(int n, int k, int[] score) {
-        int max = 0, sum = 0;
+    public static void solution(int N, int[] P) {
+        int sum = 0;
+        Arrays.sort(P);
 
-        for (int i = 0; i < n; i++) {
-            sum = sum + score[i];
-            if (i == k-1) {
-                max = sum;
+        for (int i = 0; i < N; i++){
+            int tmp = 0;
+            for (int j = 0; j <= i ; j++){
+                tmp += P[j];
             }
-            if (i>=k) {
-                sum = sum - score[i-k];
-                max = Math.max(max,sum);
-            }
+            sum += tmp;
+
         }
-        System.out.print(max);
+        System.out.print(sum);
     }
 
     public static void main(String[] args) throws IOException {
@@ -25,14 +25,11 @@ public class Main {
         StringTokenizer st;
         st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
-        int K = Integer.parseInt(st.nextToken());
-        int[] score = new int[N];
         st = new StringTokenizer(br.readLine());
-
+        int[] P = new int[N];
         for (int i = 0; i < N; i++) {
-            score[i] = Integer.parseInt(st.nextToken());
+            P[i] = Integer.parseInt(st.nextToken());
         }
-
-        solution(N, K, score);
+        solution(N,P);
     }
 }
