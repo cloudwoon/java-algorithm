@@ -5,19 +5,8 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static void solution(int N, int[] P) {
-        int sum = 0;
-        Arrays.sort(P);
+    public static void solution(int N, int M, int[][] W) {
 
-        for (int i = 0; i < N; i++){
-            int tmp = 0;
-            for (int j = 0; j <= i ; j++){
-                tmp += P[j];
-            }
-            sum += tmp;
-
-        }
-        System.out.print(sum);
     }
 
     public static void main(String[] args) throws IOException {
@@ -25,11 +14,15 @@ public class Main {
         StringTokenizer st;
         st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+
         st = new StringTokenizer(br.readLine());
-        int[] P = new int[N];
+        int[][] W = new int[N][M];
         for (int i = 0; i < N; i++) {
-            P[i] = Integer.parseInt(st.nextToken());
+            for (int j = 0; j < M; j++){
+                W[i][j] = Integer.parseInt(st.nextToken());
+            }
         }
-        solution(N,P);
+        solution(N,M,W);
     }
 }
